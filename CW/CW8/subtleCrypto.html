@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Remote URL or Local file </title>
+
+	<style>
+		body { max-width: 500px; }
+		div { margin: 12px 0; }
+		img {
+			max-width: 100%;
+			border: 1px solid darkgray;
+		}
+		#remote {
+			width: 290px;
+			font: 13px arial, sans-serif;
+			margin: 14px 0;
+			border: 1px solid darkgray;
+			padding: 5px;
+		}
+		#sample, #out { overflow-x: auto; }
+		#disp1 { color: blue; }
+	</style>
+</head>
+
+<body>
+<h2 id=title></h2>
+
+<div>
+	URL:
+	<input type=text id=remote onchange='shaFromXXX(this.value)'> <br>
+	URL SHA: <pre id="#urlSha"></pre>
+
+	<hr/>
+
+	<input type=file id=button onchange='shaFromXXX(this.files[0])'> <br> <br>
+	File SHA: <pre id="#fileSha"></pre>
+
+	<hr/>
+	<button onclick="compare()">Kıyasla</button><br>
+</div>
+
+<div>
+	<pre id="#sonuc">
+
+	</pre>
+</div>
+
+<script>
+	"use strict";
+	const RDR = new FileReader(), toHex = b=>b.toString(16).padStart(2,'0');
+
+	function bufferToHex(buf) {
+		return [...new Uint8Array(buf)].map(toHex).join('')
+	}
+
+	async function shaFromBuffer(buf) {
+		return await crypto.subtle.digest('SHA-1', buf).then(b => {return bufferToHex(b);}).catch(console.error);
+	}
+
+	async function shaFromURL(u) {
+		return await fetch(u).then(r => r.arrayBuffer()).then(t => { return shaFromBuffer(t); })
+	}
+
+	async function shaFromFile(f) {
+		return await f.arrayBuffer().then(t => { return shaFromBuffer(t); })
+	}
+
+	async function shaFromXXX(value){
+		console.log("calling shaFromXXX")
+		if(value instanceof File){
+			document.getElementById("#fileSha").innerHTML = await shaFromFile(value);
+		}
+		else if(typeof (value) === "string"){
+			document.getElementById("#urlSha").innerHTML = await shaFromURL(value);
+		}
+		else{
+			console.error("Invalid value!")
+		}
+	}
+
+	async function compare(){
+		if(document.getElementById("#fileSha").innerHTML === document.getElementById("#urlSha").innerHTML)
+			document.getElementById("#sonuc").innerHTML = "Dosyalar aynı!";
+		else
+			document.getElementById("#sonuc").innerHTML = "Dosyalar farklı!";
+	}
+
+
+
+</script>
+
+</body>
+</html>
