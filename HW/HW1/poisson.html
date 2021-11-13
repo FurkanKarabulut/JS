@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <title>Poisson Table</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="#main">
+
+    </div>
+
+    <script>
+
+        //****************************************** Fonksiyon Tanımlamaları ****************************************//
+        function generateHtmlTable(tableId, numberOfRows, numberOfColumns) {
+            let mainDiv = document.getElementById("#main");
+            let table = document.createElement("table");
+
+            table.setAttribute("id", tableId);
+
+            mainDiv.appendChild(table);
+
+            table.appendChild(document.createElement("thead"));
+            table.children[0].appendChild(document.createElement("tr"));
+
+            for(let i = 0; i < numberOfColumns; i++)
+            {
+                table.children[0].children[0].appendChild(document.createElement("th"));
+            }
+
+
+            table.appendChild(document.createElement("tbody"));
+
+            for(let i = 0; i < numberOfRows; i++)
+            {
+                let currentRow = document.createElement("tr");
+                for(let j = 0; j < numberOfColumns; j++)
+                {
+                    currentRow.appendChild(document.createElement("td"));
+                }
+                table.children[1].appendChild(currentRow);
+            }
+
+        }
+
+        function P(x, lambda){
+            let factorial = 1;
+            for(let i = 2; i <= x; i++){ factorial *= i; }
+            return Math.exp(-lambda) * Math.pow(lambda, x) / factorial;
+        }
+
+        function fillTableWithPoissonValues(tableId, x, L){
+            let table = document.getElementById("#poissonTable");
+
+            for(let columnIndex = 0; columnIndex < L.length; columnIndex++){
+                 table.children[0].children[0].children[columnIndex].innerHTML = L[columnIndex];
+            }
+
+            for(let rowIndex = 0; rowIndex < x; rowIndex++){
+                let currentRow = table.children[1].children[rowIndex];
+
+                for(let columnIndex = 0; columnIndex < L.length; columnIndex++){
+                    let poissonValueDiv = document.createElement("pre");
+                    poissonValueDiv.innerHTML = P(rowIndex, L[columnIndex]).toFixed(4);
+                    currentRow.children[columnIndex].appendChild(poissonValueDiv);
+                }
+
+            }
+        }
+        //***********************************************************************************************************//
+
+        let L = [0.5, 1, 1.5, 2, 2.5, 3];
+        let x = 8;
+
+        generateHtmlTable("#poissonTable", x, L.length);
+        fillTableWithPoissonValues("#poissonTable", x, L);
+
+    </script>
+
+    <style>
+
+        table{
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: solid 1px;
+            padding: 0 13px;
+        }
+
+        pre{
+            margin-top: 13px;
+        }
+    </style>
+</body>
+</html>
