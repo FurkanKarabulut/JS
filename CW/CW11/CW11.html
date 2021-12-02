@@ -43,7 +43,7 @@
     }
     async function readUser() {
       const BR = "<BR>",
-       const URL = "https://api.github.com/users/"
+        URL = "https://api.github.com/users/"
       let u = await toJSON(URL + usr.value)
       if (!u || !u.login)
         error(usr.value + ' not found')
