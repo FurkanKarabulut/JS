@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>CSS Animation by Furkan Karabulut</title>
+
+  <style>
+    body {
+      max-width: 500px;
+    }
+
+    #sample {
+      overflow-x: auto;
+    }
+
+    button {
+      user-select: none;
+      cursor: pointer;
+    }
+
+    div {
+      font-size: 90px;
+      background: rgb(242, 246, 2);
+      width: 450px;
+      height: 250px;
+      position: relative;
+    }
+
+    #f,
+    #u,
+    #r,
+    #k,
+    #i {
+      user-select: none;
+      position: absolute;
+      left: 130px;
+      background: rgba(0, 0, 0, 0);
+      color: rgb(4, 6, 134);
+      top: -10px;
+
+    }
+
+    #out {
+      height: 35px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 id=title></h2>
+
+  <div id=box>
+    <span id=f>f</span>
+    <span id=u>u</span>
+    <span id=r>r</span>
+    <span id=k>k</span>
+    <span id=i>i</span>
+
+  </div>
+
+  <p>
+    <button
+      onClick="f .animate(tf, 5000),u .animate(tu, 5000),r .animate(tr, 5000),k .animate(tk, 5000),i .animate(ti, 5000)">rotate</button>
+  </p>
+
+  <p id=out>Animations in CSS are powerful</p>
+
+  <hr />
+  <b>Sample code</b>
+  <pre id=sample></pre>
+
+  <hr />
+  <p>Ref: <a href="https://webkit.org/blog/8343/web-animations-in-webkit/" target="NewTab">Web Animations in WebKit</a>
+  </p>
+
+  <script>
+    "use strict";
+    const
+      r0 = "rotate(0)", x0 = "translateX(0)",
+      tf = {
+        transform: [r0, "translateX(-180px)", "translate(-80px,80px)", "rotate(720deg)", r0],
+        color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
+      },
+      tu = {
+        transform: [r0, "translateX(0px)", "translate(0px,80px)", "rotate(720deg)", r0],
+        color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
+      },
+      tr = {
+        transform: [r0, "translateX(150px)", "translate(80px,80px)", "rotate(720deg)", r0],
+        color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
+      },
+      tk = {
+        transform: [r0, "translateX(180px)", "translate(180px,80px)", "rotate(720deg)", r0],
+        color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
+      },
+      ti = {
+        transform: [r0, "translateX(240px)", "translate(240px,80px)", "rotate(720deg)", r0],
+        color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
+      };
+
+      a = [tf, tu, tr, tk, ti];
+    sample.innerText = but.innerHTML
+      + '\ntf = ' + JSON.stringify(tf)
+      + '\ntu = ' + JSON.stringify(tu)
+      + '\ntr = ' + JSON.stringify(tr)
+      + '\ntk = ' + JSON.stringify(tk)
+      + '\nti = ' + JSON.stringify(ti)
+
+  </script>
+
+</body>
+
+</html>
