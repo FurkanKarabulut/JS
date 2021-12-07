@@ -23,7 +23,7 @@
     div {
       font-size: 90px;
       background: rgb(242, 246, 2);
-      width: 450px;
+      width: 350px;
       height: 250px;
       position: relative;
     }
@@ -61,7 +61,7 @@
 
   </div>
 
-  <p>
+  <p id = buttons>
     <button
       onClick="f .animate(tf, 5000),u .animate(tu, 5000),r .animate(tr, 5000),k .animate(tk, 5000),i .animate(ti, 5000)">rotate</button>
   </p>
@@ -78,7 +78,8 @@
 
   <script>
     "use strict";
-    const
+    title.innerText = document.title;
+    let
       r0 = "rotate(0)", x0 = "translateX(0)",
       tf = {
         transform: [r0, "translateX(-180px)", "translate(-80px,80px)", "rotate(720deg)", r0],
@@ -100,9 +101,10 @@
         transform: [r0, "translateX(240px)", "translate(240px,80px)", "rotate(720deg)", r0],
         color: ["darkblue", "yellow", "red", "magenta", "darkblue"], fontSize: ["100%", "200%", "100%", "50%", "100%"]
       };
+     let a = [tf, tu, tr, tk, ti];
 
-      a = [tf, tu, tr, tk, ti];
-    sample.innerText = but.innerHTML
+    
+    sample.innerText = buttons.innerHTML
       + '\ntf = ' + JSON.stringify(tf)
       + '\ntu = ' + JSON.stringify(tu)
       + '\ntr = ' + JSON.stringify(tr)
